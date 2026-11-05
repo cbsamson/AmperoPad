@@ -11,6 +11,11 @@ private struct EffectBlock: Identifiable {
     var active = true
 }
 
+private struct EffectCategory: Identifiable {
+    let id: String
+    let symbol: String
+}
+
 struct ContentView: View {
     @StateObject private var midi = USBMIDIConnection()
     @State private var selectedPreset = "A82-1"
@@ -31,6 +36,12 @@ struct ContentView: View {
         Preset(id: "A83-1", name: "YourPromises"), Preset(id: "A83-2", name: "Mellow Prince")
     ]
     private let effects = ["Prince of Drive", "Noble Drive", "Big Pie", "Face Fuzz", "Bend Fuzz", "Plustortion", "Smooth Dist", "Black Tail"]
+    private let categories = [
+        EffectCategory(id: "DYN", symbol: "waveform"), EffectCategory(id: "FREQ", symbol: "waveform.path"),
+        EffectCategory(id: "WAH", symbol: "pianokeys"), EffectCategory(id: "DRV", symbol: "waveform"),
+        EffectCategory(id: "AMP", symbol: "rectangle.stack"), EffectCategory(id: "CAB", symbol: "cabinet"),
+        EffectCategory(id: "EQ", symbol: "slider.horizontal.3"), EffectCategory(id: "MOD", symbol: "waveform.path")
+    ]
 
     var body: some View {
         VStack(spacing: 0) {
@@ -130,8 +141,8 @@ struct ContentView: View {
     private var editorPanel: some View {
         HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 14) {
-                ForEach([("waveform", "DYN"), ("waveform.path", "FREQ"), ("pianokeys", "WAH"), ("waveform", "DRV"), ("rectangle.stack", "AMP"), ("cabinet", "CAB"), ("slider.horizontal.3", "EQ"), ("waveform.path", "MOD")], id: \.1) { icon, name in
-                    Label(name, systemImage: icon).font(.caption).foregroundStyle(name == "DRV" ? gold : .white)
+                ForEach(categories) { category in
+                    Label(category.id, systemImage: category.symbol).font(.caption).foregroundStyle(category.id == "DRV" ? gold : .white)
                 }
             }.frame(width: 105, alignment: .leading).padding(12)
             Divider()
