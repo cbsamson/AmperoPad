@@ -1,0 +1,21 @@
+name: AmperoPad
+options:
+  bundleIdPrefix: com.cbsamson
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  AmperoPad:
+    type: application
+    platform: iOS
+    sources:
+      - path: AmperoPadApp.swift
+      - path: ContentView.swift
+      - path: USBMIDIConnection.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.cbsamson.amperopad
+        PRODUCT_NAME: AmperoPad
+        SWIFT_VERSION: "5.9"
+        TARGETED_DEVICE_FAMILY: "2"
+        INFOPLIST_KEY_UIUserInterfaceStyle: Dark
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
